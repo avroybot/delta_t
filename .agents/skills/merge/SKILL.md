@@ -33,11 +33,15 @@ blockers listed at the end.
 
 ## 2. Commit uncommitted work
 
-- If `git status --porcelain` is non-empty, stage with `git add -A` and commit
-  with `GIT_EDITOR=true git commit -m "<message>"`, deriving the message from
-  `git --no-pager diff` / `git --no-pager diff --cached`.
+- If `git status --porcelain` is non-empty, list the files that will be
+  committed before staging anything, so the report is transparent.
+- Stage with `git add -A` and commit with `GIT_EDITOR=true git commit -m
+  "<message>"`, deriving the message from `git --no-pager diff` /
+  `git --no-pager diff --cached`.
 - Never commit credential-like files (`.env`, `*.pem`, token files) or obvious
   local junk: skip them and say so in the report.
+- Agent tooling directories such as `.agents/` are not auto-committed; include
+  them only when the user explicitly asks.
 - Continue even if the tree was already clean; do not stop here when there is
   nothing to commit.
 
